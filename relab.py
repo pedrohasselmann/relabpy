@@ -172,11 +172,13 @@ class Relab:
   def query(self, field, value, extract=True):
      if field in self.fullcat.columns:
        q = self.fullcat[self.fullcat[field] == value]
-       self.search = q       
+       self.search = q
+       if extract=True: self.search.to_csv(path.join('catalogues','mysearch.dat'), sep=str("\t"), encoding='utf-8', na_rep="-")       
        self.retrieve_spectra(extract)
   
   def locate(self, sampleid, extract=True):
      self.search = self.fullcat.loc[sampleid]
+     if extract=True: self.search.to_csv(path.join('catalogues','mysearch.dat'), sep=str("\t"), encoding='utf-8', na_rep="-")
      self.retrieve_spectra(extract)
 
 if __name__ == '__main__':
